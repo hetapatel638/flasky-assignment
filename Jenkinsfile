@@ -1,6 +1,11 @@
 pipeline {
-  agent any
-
+  agent {
+    docker {
+      image 'python:3.10'
+      args '-u root:root'
+    }
+  }
+  
   environment {
     VENV = "${WORKSPACE}/venv"
     PATH = "${WORKSPACE}/venv/bin:${env.PATH}"
