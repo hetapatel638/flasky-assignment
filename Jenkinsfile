@@ -1,10 +1,5 @@
 pipeline {
-  agent {
-    docker {
-      image 'python:3.10'
-      args '-u root:root'
-    }
-  }
+  agent any
   
   environment {
     VENV = "${WORKSPACE}/venv"
@@ -15,11 +10,12 @@ pipeline {
     stage('Build') {
       steps {
         echo '=== BUILD: Setting up Python virtual environment and installing dependencies ==='
-        sh '''
-          python3 -m venv venv
-          . venv/bin/activate
-          pip install --upgrade pip
-          pip install -r requirements.txt
+       sh '''
+        python3 --version || python --version
+        python3 -m venv venv || python -m venv venv
+        . venv/bin/activate
+        pip install --upgrade pip
+        pip install -r requirements.txt
         '''
       }
     }
