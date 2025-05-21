@@ -145,7 +145,7 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token.encode('utf-8'))
-        except:
+        except Exception:
             return False
         if data.get('confirm') != self.id:
             return False
@@ -162,7 +162,7 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token.encode('utf-8'))
-        except:
+        except Exception:
             return False
         user = User.query.get(data.get('reset'))
         if user is None:
@@ -180,7 +180,7 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token.encode('utf-8'))
-        except:
+        except Exception:
             return False
         if data.get('change_email') != self.id:
             return False
@@ -263,7 +263,7 @@ class User(UserMixin, db.Model):
         s = Serializer(current_app.config['SECRET_KEY'])
         try:
             data = s.loads(token)
-        except:
+        except Exception:
             return None
         return User.query.get(data['id'])
 
@@ -277,6 +277,7 @@ class AnonymousUser(AnonymousUserMixin):
 
     def is_administrator(self):
         return False
+
 
 login_manager.anonymous_user = AnonymousUser
 
