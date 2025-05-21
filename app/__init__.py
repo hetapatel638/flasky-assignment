@@ -31,7 +31,7 @@ def create_app(config_name):
 
     if app.config['SSL_REDIRECT']:
         from flask_sslify import SSLify
-        sslify = SSLify(app)
+        SSLify(app)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
